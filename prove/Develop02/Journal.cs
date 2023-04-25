@@ -1,4 +1,6 @@
+using System.IO;
 using System.Xml;
+using System.Xml.Serialization;
 
 
 public class Journal
@@ -65,59 +67,57 @@ public class Journal
 
     public List<Entry> LoadEntries(string fileName)
     {
-
         string path = $"./{fileName}.xml";
         List<Entry> notes = new List<Entry>();
 
-        if (System.IO.File.Exists($"{fileName}.xml"))
+        if (File.Exists(path))
         {
-
-            XmlDocument xmlDoc = new XmlDocument();
-            xmlDoc.Load(path);
-
-            foreach (XmlNode item in xmlDoc.DocumentElement.SelectNodes("Journal/Entry"))
+            try
             {
-                Entry note = new Entry();
-                string prompt = item.Attributes["Prompt"].Value;
-                note.prompt = prompt;
-                DateTime date = Convert.ToDateTime(item.Attributes["Date"].Value);
-                note.date = date;
-                string userResponse = item.Attributes["User_Response"].Value;
-                note.userResponse = userResponse;
+                using (StreamReader reader = new StreamReader(path))
+                {
+                    XmlSerializer serializer = new XmlSerializer(typeof(List<Entry>), new XmlRootAttribute("Journal"));
+                    notes = (List<Entry>)serializer.Deserialize(reader);
 
-
-                notes.Add(note);
+                }
+                Console.WriteLine("\nFile loaded successfully\n");
+                foreach (Entry note in notes)
+                {
+                    Console.WriteLine(note.Display());
+                }
             }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+
         }
+
+
+
 
         return notes;
     }
 
     public void SaveEntries(string fileName)
     {
-        string path = $"./{fileName}.xml";
-        XmlWriter writer = XmlWriter.Create(path);
-
-        writer.WriteStartDocument();
-        writer.WriteStartElement("Root");
-
-        writer.WriteStartElement("Journal");
-        writer.WriteStartAttribute("Name", $"{username}");
-
-        foreach (Entry notes in entries)
+        try
         {
-            writer.WriteStartElement("Entry");
-            writer.WriteStartAttribute("Prompt", $"{notes.prompt}");
-            writer.WriteStartAttribute("Date", $"{notes.date}");
-            writer.WriteStartAttribute("User_Response", $"{notes.userResponse}");
-            writer.WriteEndElement();
+            string path = $"./{fileName}.xml";
+            using (StreamWriter writer = new StreamWriter(path))
+            {
+                XmlSerializer serializer = new XmlSerializer(typeof(List<Entry>), new XmlRootAttribute("Journal"));
+                serializer.Serialize(writer, entries);
+            }
+            Console.WriteLine("\nFile saved successfully\n");
         }
-
-        writer.WriteEndElement();
-        writer.WriteEndElement();
-
-        writer.Close();
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
     }
+
+
 
     public void ActionMenu(int option)
     {
@@ -133,7 +133,7 @@ public class Journal
             case 3:
                 Console.WriteLine("What is the name of the file? Please don't add the XML extension");
                 fileName = Console.ReadLine();
-                LoadEntries(fileName);
+                this.entries = LoadEntries(fileName);
                 break;
             case 4:
                 Console.WriteLine("What is the name of the file? Please don't add the XML extension");
