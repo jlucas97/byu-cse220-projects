@@ -2,9 +2,9 @@
 public class Entry
 {
 
-    public string prompt { get; set; }
-    public DateTime date { get; set; }
-    public string userResponse { get; set; }
+    public string _prompt { get; set; }
+    public DateTime _date { get; set; }
+    public string _userResponse { get; set; }
 
 
     public Entry()
@@ -14,6 +14,6 @@ public class Entry
 
     public string Display()
     {
-        return $"Date: {date.ToShortDateString()} - Prompt: {prompt} \n{userResponse}\n";
+        return $"Date: {_date.ToShortDateString()} - Prompt: {_prompt} \n{_userResponse}\n";
     }
 }
