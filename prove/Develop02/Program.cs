@@ -10,7 +10,7 @@ class Program
 
         Console.WriteLine("Hello, what is your name: ");
         string name = Console.ReadLine();
-        dailyJournal.username = name;
+        dailyJournal._username = name;
 
         do
         {
