@@ -57,10 +57,10 @@ public class Journal
         string journalPrompt;
 
         journalPrompt = ShowPrompt();
-        note.prompt = journalPrompt;
+        note._prompt = journalPrompt;
         Console.WriteLine(journalPrompt);
-        note.userResponse = Console.ReadLine();
-        note.date = today;
+        note._userResponse = Console.ReadLine();
+        note._date = today;
 
         _entries.Add(note);
         Console.WriteLine();

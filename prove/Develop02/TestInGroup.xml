@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Journal xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Entry>
+    <_prompt>Who was the most interesting person I interacted with today?</_prompt>
+    <_date>2023-04-26T00:00:00-06:00</_date>
+    <_userResponse>My wife</_userResponse>
+  </Entry>
+  <Entry>
+    <_prompt>How did I see the hand of the Lord in my life today?</_prompt>
+    <_date>2023-04-26T00:00:00-06:00</_date>
+    <_userResponse>Being with my family</_userResponse>
+  </Entry>
+</Journal>
