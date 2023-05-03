@@ -4,6 +4,10 @@ class Program
 {
     static void Main(string[] args)
     {
-        Console.WriteLine("Hello Develop03 World!");
+        Json jReader = Json.GetJsonInstance();
+        jReader.ReadJsonFile();
+
+        Scripture scripture = new Scripture();
+        Console.WriteLine(scripture.ScriptureToLearn("Old Testament", "Genesis", 1, 1));
     }
 }
