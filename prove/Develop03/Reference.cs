@@ -11,17 +11,12 @@ class Reference
 
     }
 
-    public string Volume
+    public string DisplayReference()
     {
-        get
-        {
-            return _volume;
-        }
-        set
-        {
-            _volume = value;
-        }
+        return $"{_book} {_chapter}:{Verse}";
     }
+
+
     public string Book
     {
         get
@@ -46,15 +41,6 @@ class Reference
         }
     }
 
-    public int Verse
-    {
-        get
-        {
-            return _verse;
-        }
-        set
-        {
-            _verse = value;
-        }
-    }
+    public int Verse { get => _verse; set => _verse = value; }
+    public string Volume { get => _volume; set => _volume = value; }
 }
